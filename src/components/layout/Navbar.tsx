@@ -1,48 +1,32 @@
-import { Link } from 'react-router-dom'
-import { useAuthStore } from '../../store/useAuthStore'
+import { useNavigate } from 'react-router-dom'
+import { authApi } from '../../api/auth'
 
 export const Navbar = () => {
-  const { user, logout } = useAuthStore((state) => ({
-    user: state.user,
-    logout: state.logout,
-  }))
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    authApi.logout()
+    navigate('/login')
+  }
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow mb-5">
-      <div className="container-fluid" style={{ maxWidth: '2000px', padding: '20px 20px' }}>
-        <div className="d-flex justify-content-between align-items-center w-100">
-          <Link to="/" className="text-xl font-bold" style={{ fontSize: '24px' }}>
-            Task Manager
-          </Link>
-          <div className="d-flex align-items-center gap-3">
-            {user ? (
-              <>
-                <span>{user.name}</span>
-                <button
-                  onClick={logout}
-                  className="btn btn-danger"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <div className="d-flex gap-2">
-                <Link
-                  to="/login"
-                  className="btn btn-primary"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register" 
-                  className="btn btn-outline-primary"
-                >
-                  Register
-                </Link>
-              </div>
-            )}
-          </div>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary align-items-center ">
+      <div className="container py-3">
+        <div className="d-flex align-items-center">
+        <img 
+            src="src\assets\logo.png" 
+            alt="Logo" 
+            height="50"
+            className="me-3"
+          />
+          <span className="navbar-brand mb-0 h1">Task Manager</span>
         </div>
+        <button
+          onClick={handleLogout}
+          className="btn btn-outline-light"
+        >
+          Logout
+        </button>
       </div>
     </nav>
   )

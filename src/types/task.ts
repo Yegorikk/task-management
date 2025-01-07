@@ -1,16 +1,16 @@
-export type Priority = 'low' | 'medium' | 'high'
 export type Status = 'todo' | 'in_progress' | 'done'
+export type Priority = 'low' | 'medium' | 'high'
 
 export interface Task {
   id: string
   title: string
   description: string
-  priority: Priority
   status: Status
+  priority: Priority
   deadline: string
-  userId: string
-  createdAt: string
-  updatedAt: string
+  userId?: string
+  createdAt?: string
+  updatedAt?: string
 }
 
 export interface CreateTaskDto {

@@ -12,7 +12,6 @@ export const TaskForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: Implement task creation
     const newTask = {
       id: Date.now().toString(),
       title,
@@ -20,7 +19,7 @@ export const TaskForm = () => {
       priority,
       status: 'todo' as const,
       deadline,
-      userId: '1', // TODO: Get from auth store
+      userId: localStorage.getItem('userId') || '1', // Отримуємо ID користувача з localStorage
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
@@ -35,7 +34,7 @@ export const TaskForm = () => {
     <form onSubmit={handleSubmit} className="card">
       <div className="card-body">
         <div className="row g-3">
-          <div className="col-md-6">
+          <div className="col-md-9">
             <label htmlFor="title" className="form-label">
               Title
             </label>
@@ -48,7 +47,7 @@ export const TaskForm = () => {
               required
             />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-1">
             <label htmlFor="priority" className="form-label">
               Priority
             </label>
@@ -63,19 +62,7 @@ export const TaskForm = () => {
               <option value="high">High</option>
             </select>
           </div>
-          <div className="col-12">
-            <label htmlFor="description" className="form-label">
-              Description
-            </label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="form-control"
-              rows={3}
-            />
-          </div>
-          <div className="col-md-6">
+          <div className="col-md-2">
             <label htmlFor="deadline" className="form-label">
               Deadline
             </label>
@@ -89,9 +76,21 @@ export const TaskForm = () => {
             />
           </div>
           <div className="col-12">
+            <label htmlFor="description" className="form-label">
+              Description
+            </label>
+            <textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="form-control"
+              rows={3}
+            />
+          </div>
+          <div className="col-12">
             <button
               type="submit"
-              className="btn btn-primary w-100"
+              className="btn btn-primary w-100 my-3"
             >
               Create Task
             </button>

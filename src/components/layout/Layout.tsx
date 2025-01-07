@@ -1,12 +1,16 @@
-import { Outlet } from 'react-router-dom'
-import { Navbar } from '../layout/Navbar'
+import { ReactNode } from 'react'
+import { Navbar } from './Navbar'
 
-export const Layout = () => {
+interface LayoutProps {
+  children: ReactNode
+}
+
+export const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="min-vh-100 bg-light">
+    <div>
       <Navbar />
-      <main className="container-fluid py-4" style={{ maxWidth: '1800px', padding: '0 24px' }}>
-        <Outlet />
+      <main className="container-fluid">
+        {children}
       </main>
     </div>
   )
